@@ -4,21 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" href="/img/favicon.ico">
-  <title>TechGloria – Custom Software Solutions</title>
-  <meta name="description" content="TechGloria builds smart, scalable custom software and web/mobile apps for businesses." />
-  <meta name="keywords" content="TechGloria, Software Company, Custom Software, Web Development, Mobile Apps, IT Consulting" />
-  <meta name="author" content="TechGloria" />
+  <title>Tech Gloria – Custom Software Solutions</title>
+  <meta name="description" content="Tech Gloria builds smart, scalable custom software and web/mobile apps for businesses." />
+  <meta name="keywords" content="Tech Gloria, Software Company, Custom Software, Web Development, Mobile Apps, IT Consulting" />
+  <meta name="author" content="Tech Gloria" />
+  <link rel="canonical" href="https://techgloria.com/" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="TechGloria – Custom Software Solutions" />
+  <meta property="og:title" content="Tech Gloria – Custom Software Solutions" />
   <meta property="og:description" content="Smart, scalable digital products tailored to your business." />
   <meta property="og:image" content="https://techgloria.com/img/logo.png" />
   <meta property="og:url" content="https://techgloria.com" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="TechGloria – Custom Software Solutions" />
+  <meta name="twitter:title" content="Tech Gloria – Custom Software Solutions" />
   <meta name="twitter:description" content="Smart, scalable digital products tailored to your business." />
   <meta name="twitter:image" content="https://techgloria.com/img/logo.png" />
 
@@ -27,7 +28,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "TechGloria",
+      "name": "Tech Gloria",
       "url": "https://techgloria.com",
       "logo": "https://techgloria.com/img/logo.png",
       "description": "Custom software and digital product development company.",
@@ -94,18 +95,78 @@
   <!-- Contact Section -->
   <section id="contact" class="py-16 px-6 max-w-2xl mx-auto">
     <h2 class="text-3xl font-bold mb-6 text-center">Contact Us</h2>
-    <p class="text-center text-gray-600 mb-6">Ready to start your project? Let’s talk.</p>
-    <form class="space-y-4">
-      <input type="text" placeholder="Your Name" class="w-full p-3 border rounded" />
-      <input type="email" placeholder="Your Email" class="w-full p-3 border rounded" />
-      <textarea placeholder="Your Message" class="w-full p-3 border rounded h-32"></textarea>
+    <p class="text-center text-gray-600 mb-6">
+      Ready to start your project? Let’s talk — email us at
+      <a href="mailto:contact@techgloria.com" class="text-green-600 font-semibold hover:underline">contact@techgloria.com</a>
+      or use the form below.
+    </p>
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+      <input type="hidden" name="access_key" value="02832270-385b-4843-a6bc-e9cc2ebd4318" />
+      <input type="hidden" name="subject" value="New enquiry from Tech Gloria website" />
+      <input type="hidden" name="from_name" value="Tech Gloria Website" />
+      <!-- Honeypot field for spam protection (bots fill it, humans don't) -->
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+      <div>
+        <label for="name" class="sr-only">Your Name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required placeholder="Your Name" class="w-full p-3 border rounded" />
+      </div>
+      <div>
+        <label for="email" class="sr-only">Your Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required placeholder="Your Email" class="w-full p-3 border rounded" />
+      </div>
+      <div>
+        <label for="message" class="sr-only">Your Message</label>
+        <textarea id="message" name="message" required placeholder="Your Message" class="w-full p-3 border rounded h-32"></textarea>
+      </div>
       <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition">Send Message</button>
+      <p id="form-status" role="status" aria-live="polite" class="text-center text-sm"></p>
     </form>
   </section>
 
   <!-- Footer -->
   <footer class="bg-gray-900 text-white text-center py-6 mt-12">
-    <p>&copy; 2025 Tech Gloria. All rights reserved.</p>
+    <p>&copy; <span id="year">2025</span> Tech Gloria. All rights reserved.</p>
   </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // AJAX contact form submission (Web3Forms) with inline status messages
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      status.textContent = '';
+      status.className = 'text-center text-sm';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          status.textContent = 'Thanks! Your message has been sent — we’ll be in touch soon.';
+          status.classList.add('text-green-600');
+          form.reset();
+        } else {
+          status.textContent = data.message || 'Something went wrong. Please email us at contact@techgloria.com.';
+          status.classList.add('text-red-600');
+        }
+      } catch (err) {
+        status.textContent = 'Network error. Please email us at contact@techgloria.com.';
+        status.classList.add('text-red-600');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      }
+    });
+  </script>
 </body>
 </html>
