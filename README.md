@@ -14,6 +14,7 @@ The official marketing website for **Tech Gloria**, a custom software solutions 
 ```text
 .
 ├── index.html        # The entire site (markup + inline scripts)
+├── privacy.html      # Privacy policy page
 ├── 404.html          # Custom not-found page (served by GitHub Pages)
 ├── CNAME             # Custom domain for GitHub Pages (techgloria.com)
 ├── robots.txt        # Search engine crawl rules
