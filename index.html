@@ -29,11 +29,55 @@
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Tech Gloria",
-      "url": "https://techgloria.com",
-      "logo": "https://techgloria.com/img/logo.png",
-      "description": "Custom software and digital product development company."
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://techgloria.com/#organization",
+          "name": "Tech Gloria",
+          "url": "https://techgloria.com/",
+          "logo": "https://techgloria.com/img/logo.png",
+          "image": "https://techgloria.com/img/logo.png",
+          "description": "Custom software and digital product development company.",
+          "slogan": "Empowering Innovation through Software",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Custom Software Development",
+                  "description": "Tailored solutions to meet your specific business needs using modern technologies."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Web & Mobile Apps",
+                  "description": "Responsive, user-friendly apps that deliver performance and great UX."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "IT Consulting",
+                  "description": "Expert advice to help you make the right technology choices and strategy."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://techgloria.com/#website",
+          "url": "https://techgloria.com/",
+          "name": "Tech Gloria",
+          "publisher": { "@id": "https://techgloria.com/#organization" }
+        }
+      ]
     }
   </script>
 
