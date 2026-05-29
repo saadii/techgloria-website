@@ -69,16 +69,25 @@ To change where submissions go, update the destination email in the Web3Forms da
 
 ## Deployment
 
-The site deploys automatically via **GitHub Pages** from the `main` branch — it serves the committed static files as-is (there is no CI build step, so the compiled `css/styles.css` must be committed). To publish changes:
+Deployment is automated by a **GitHub Actions** workflow ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)). On every push to `main` it installs dependencies, runs `npm run build` to compile a fresh minified `css/styles.css`, and deploys the static site to GitHub Pages. To publish changes, just push:
 
 ```bash
-npm run build      # if you changed markup or src/input.css
 git add .
 git commit -m "Your message"
 git push
 ```
 
-GitHub Pages rebuilds within a minute or two. The custom domain is set by the [`CNAME`](CNAME) file.
+Because CI rebuilds the CSS on every deploy, the live site is **never** affected by a forgotten local `npm run build` — the build step is guaranteed. (Running `npm run build` before committing is still recommended so the committed `css/styles.css` matches, which keeps local previews accurate.)
+
+The custom domain is set by the [`CNAME`](CNAME) file, which is included in the deployed artifact.
+
+### One-time setup
+
+For the workflow to deploy, the repository's Pages source must be set to **GitHub Actions**:
+
+> **Settings → Pages → Build and deployment → Source → "GitHub Actions"**
+
+(Previously this was "Deploy from a branch". The custom domain setting is preserved across the switch.)
 
 ## SEO
 
