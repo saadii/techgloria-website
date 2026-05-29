@@ -11,9 +11,10 @@ The official marketing website for **Tech Gloria**, a custom software solutions 
 
 ## Project Structure
 
-```
+```text
 .
 ├── index.html        # The entire site (markup + inline scripts)
+├── 404.html          # Custom not-found page (served by GitHub Pages)
 ├── CNAME             # Custom domain for GitHub Pages (techgloria.com)
 ├── robots.txt        # Search engine crawl rules
 ├── sitemap.xml       # Sitemap for SEO
