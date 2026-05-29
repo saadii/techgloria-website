@@ -5,7 +5,7 @@ The official marketing website for **Tech Gloria**, a custom software solutions 
 ## Tech Stack
 
 - **HTML5** — single-page site ([`index.html`](index.html))
-- **Tailwind CSS 2.2.19** — loaded via CDN (no build step)
+- **Tailwind CSS 4** — compiled to a minified, purged stylesheet ([`css/styles.css`](css/styles.css)) via the Tailwind CLI
 - **Web3Forms** — handles contact form submissions without a backend
 - **GitHub Pages** — static hosting with a custom domain
 
@@ -18,29 +18,44 @@ The official marketing website for **Tech Gloria**, a custom software solutions 
 ├── CNAME             # Custom domain for GitHub Pages (techgloria.com)
 ├── robots.txt        # Search engine crawl rules
 ├── sitemap.xml       # Sitemap for SEO
+├── package.json      # Build scripts + Tailwind CLI dependency
+├── src/
+│   └── input.css     # Tailwind entry point + custom CSS (edit this, not styles.css)
+├── css/
+│   └── styles.css    # Compiled, minified stylesheet (generated — commit it)
 ├── img/              # Images (logo, favicon)
 │   ├── logo.png
 │   └── favicon.ico
-├── css/              # (currently empty — styling is via Tailwind CDN)
 └── js/               # (currently empty — scripts are inline in index.html)
 ```
 
 ## Running Locally
 
-No build tools or dependencies are required. Either:
+The compiled stylesheet ([`css/styles.css`](css/styles.css)) is committed, so to just **view** the site you don't need to build anything — open `index.html` directly, or serve it (recommended, so absolute paths like `/css/styles.css` and the form behave like production):
 
-- **Open directly:** double-click `index.html` to open it in a browser, or
-- **Serve it** (recommended, so relative paths and the form behave like production):
+```bash
+# Python 3
+python -m http.server 8000
 
-  ```bash
-  # Python 3
-  python -m http.server 8000
+# or Node
+npx serve .
+```
 
-  # or Node
-  npx serve .
-  ```
+Then visit <http://localhost:8000>.
 
-  Then visit <http://localhost:8000>.
+## Styling (Tailwind build)
+
+Styles are written with Tailwind utility classes in the HTML, plus custom CSS in [`src/input.css`](src/input.css). The Tailwind CLI compiles these into a minified, purged [`css/styles.css`](css/styles.css).
+
+**If you change any markup or `src/input.css`, rebuild the stylesheet** (otherwise newly used utility classes won't exist in the compiled CSS):
+
+```bash
+npm install        # once, to install the Tailwind CLI
+npm run build      # compile css/styles.css (minified)
+npm run watch      # or: rebuild automatically while editing
+```
+
+Commit the regenerated `css/styles.css` along with your changes.
 
 ## Contact Form
 
@@ -55,9 +70,10 @@ To change where submissions go, update the destination email in the Web3Forms da
 
 ## Deployment
 
-The site deploys automatically via **GitHub Pages** from the `main` branch. To publish changes:
+The site deploys automatically via **GitHub Pages** from the `main` branch — it serves the committed static files as-is (there is no CI build step, so the compiled `css/styles.css` must be committed). To publish changes:
 
 ```bash
+npm run build      # if you changed markup or src/input.css
 git add .
 git commit -m "Your message"
 git push

@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* Scan these files for utility classes used in markup */
+@source "../index.html";
+@source "../404.html";
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset anchor targets so the sticky header doesn't cover headings */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Hero background gradient (kept as plain CSS to avoid Tailwind's
+   gradient-utility rename between versions). green-50 → emerald-100. */
+.hero-bg {
+  background: linear-gradient(to bottom right, #f0fdf4, #d1fae5);
+}
+
+/* Gradient brand accent for headings */
+.text-gradient {
+  background: linear-gradient(90deg, #16a34a, #059669);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Scroll-reveal: elements fade/slide in when they enter the viewport */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Card hover lift */
+.card {
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+}
+
+/* Animated nav underline */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: #16a34a;
+  transition: width .25s ease;
+}
+.nav-link:hover::after,
+.nav-link:focus::after {
+  width: 100%;
+}
+
+/* Soft decorative blobs behind the hero */
+.blob {
+  filter: blur(64px);
+  opacity: .55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .card {
+    transition: none;
+  }
+}
