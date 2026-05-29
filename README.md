@@ -31,31 +31,30 @@ The official marketing website for **Tech Gloria**, a custom software solutions 
 
 ## Running Locally
 
-The compiled stylesheet ([`css/styles.css`](css/styles.css)) is committed, so to just **view** the site you don't need to build anything — open `index.html` directly, or serve it (recommended, so absolute paths like `/css/styles.css` and the form behave like production):
+Install dependencies once, then start the dev server:
 
 ```bash
-# Python 3
-python -m http.server 8000
-
-# or Node
-npx serve .
+npm install        # once
+npm run dev        # serves at http://localhost:8000 with live reload
 ```
 
-Then visit <http://localhost:8000>.
+`npm run dev` runs two things together: the Tailwind CLI in watch mode (recompiling `css/styles.css` on every change) and [`live-server`](https://www.npmjs.com/package/live-server), which serves the site and auto-refreshes the browser when files change. Open <http://localhost:8000>.
+
+> **Note:** serve the site (don't just double-click `index.html`). The pages use absolute asset paths like `/css/styles.css`, which only resolve when served from a document root — under the `file://` protocol they point at your drive root and the page renders unstyled.
+
+The compiled stylesheet is committed, so if you only want to **view** the site without Node, any static server works (e.g. `python -m http.server 8000` or `npx serve .`).
 
 ## Styling (Tailwind build)
 
-Styles are written with Tailwind utility classes in the HTML, plus custom CSS in [`src/input.css`](src/input.css). The Tailwind CLI compiles these into a minified, purged [`css/styles.css`](css/styles.css).
-
-**If you change any markup or `src/input.css`, rebuild the stylesheet** (otherwise newly used utility classes won't exist in the compiled CSS):
+Styles are written with Tailwind utility classes in the HTML, plus custom CSS in [`src/input.css`](src/input.css). The Tailwind CLI compiles these into [`css/styles.css`](css/styles.css).
 
 ```bash
-npm install        # once, to install the Tailwind CLI
-npm run build      # compile css/styles.css (minified)
-npm run watch      # or: rebuild automatically while editing
+npm run dev        # watch + live-reload server (development)
+npm run watch      # watch + recompile only (no server)
+npm run build      # one-off minified production build
 ```
 
-Commit the regenerated `css/styles.css` along with your changes.
+**Before committing, run `npm run build`** so the committed `css/styles.css` is the minified production build (the watch/dev tasks emit an unminified stylesheet). Commit the regenerated `css/styles.css` alongside your changes — otherwise newly used utility classes won't exist in the deployed CSS.
 
 ## Contact Form
 

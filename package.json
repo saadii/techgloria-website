@@ -5,10 +5,14 @@
   "private": true,
   "scripts": {
     "build": "tailwindcss -i ./src/input.css -o ./css/styles.css --minify",
-    "watch": "tailwindcss -i ./src/input.css -o ./css/styles.css --watch"
+    "watch": "tailwindcss -i ./src/input.css -o ./css/styles.css --watch",
+    "serve": "live-server --port=8000 --no-browser",
+    "dev": "concurrently --kill-others --names \"css,web\" --prefix-colors \"green,cyan\" \"npm run watch\" \"npm run serve\""
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.0.0",
+    "concurrently": "^9.0.0",
+    "live-server": "^1.2.2",
     "tailwindcss": "^4.0.0"
   }
 }
