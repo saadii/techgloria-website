@@ -31,12 +31,7 @@
       "name": "Tech Gloria",
       "url": "https://techgloria.com",
       "logo": "https://techgloria.com/img/logo.png",
-      "description": "Custom software and digital product development company.",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "contact@techgloria.com",
-        "contactType": "Customer Support"
-      }
+      "description": "Custom software and digital product development company."
     }
   </script>
 
@@ -96,9 +91,7 @@
   <section id="contact" class="py-16 px-6 max-w-2xl mx-auto">
     <h2 class="text-3xl font-bold mb-6 text-center">Contact Us</h2>
     <p class="text-center text-gray-600 mb-6">
-      Ready to start your project? Let’s talk — email us at
-      <a href="mailto:contact@techgloria.com" class="text-green-600 font-semibold hover:underline">contact@techgloria.com</a>
-      or use the form below.
+      Ready to start your project? Let’s talk — fill out the form below and we’ll get back to you.
     </p>
     <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
       <input type="hidden" name="access_key" value="02832270-385b-4843-a6bc-e9cc2ebd4318" />
@@ -156,11 +149,11 @@
           status.classList.add('text-green-600');
           form.reset();
         } else {
-          status.textContent = data.message || 'Something went wrong. Please email us at contact@techgloria.com.';
+          status.textContent = data.message || 'Something went wrong. Please try again.';
           status.classList.add('text-red-600');
         }
       } catch (err) {
-        status.textContent = 'Network error. Please email us at contact@techgloria.com.';
+        status.textContent = 'Network error. Please try again in a moment.';
         status.classList.add('text-red-600');
       } finally {
         submitBtn.disabled = false;
